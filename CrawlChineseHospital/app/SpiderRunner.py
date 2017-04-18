@@ -6,6 +6,11 @@ from .spiders.HospitalSpider3A import HospitalSpider3A
 from .spiders.HospitalSpider2A import HospitalSpider2A
 
 class Runner:
+    '''
+    Spider runner, along with item filters and pipelines
+    filters will filter item which not match requirement
+    and pipelines will do something to item, like save it to database, or output item information to console
+    '''
     def __init__(self, spider, filters = [], pipelines = []):
         self.spider = spider
         self.filters = filters
@@ -29,6 +34,9 @@ class Runner:
     def _filter_check(self, item):
         # this method is sync, how to make it async
         # just,,,,in the bottom level, how to make this filter check function async
+        for filter in self.filters:
+            if filter(item):
+                return False
         return True
 
     def _go_through_pipeline(self, item):
