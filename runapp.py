@@ -4,10 +4,12 @@ from tornado import gen
 
 from CrawlChineseHospital.app.spiders.HospitalSpider3A import HospitalSpider3A
 from CrawlChineseHospital.app.SpiderRunner import Runner
+from CrawlChineseHospital.app.spiders.ProvinceIDSpider import ProvinceIDSpider
 
 @gen.coroutine
 def main():
-    runner = Runner(HospitalSpider3A('7216'))
+    #runner = Runner(HospitalSpider3A('7216'))
+    runner = Runner(ProvinceIDSpider())
     yield runner.run()
     
     ########################################
@@ -19,5 +21,6 @@ def main():
     #spider.parse(response)
     #################################################
 
-IOLoop.current().run_sync(main)
+if __name__ == '__main__':
+    IOLoop.current().run_sync(main)
 
