@@ -5,13 +5,13 @@ from tornado import gen
 from CrawlChineseHospital.app.spiders.HospitalSpider3A import HospitalSpider3A
 from CrawlChineseHospital.app.SpiderRunner import Runner
 from CrawlChineseHospital.app.spiders.ProvinceIDSpider import ProvinceIDSpider
+from CrawlChineseHospital.app.pipelines.OutputToConsolePipeline import OutputToConsolePipeline
 
 @gen.coroutine
 def main():
     #runner = Runner(HospitalSpider3A('7216'))
-    runner = Runner(ProvinceIDSpider())
-    yield runner.run()
-    
+    runner = Runner(ProvinceIDSpider(), pipelines=[OutputToConsolePipeline()])
+    crawl_items = yield runner.run()
     ########################################
     #client = AsyncHTTPClient()
     #spider = HospitalSpider3A()

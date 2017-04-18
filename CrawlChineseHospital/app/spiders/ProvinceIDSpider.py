@@ -16,4 +16,4 @@ class ProvinceIDSpider(Spider):
 
         for i in range(len(province_ids)):
             if province_ids[i]:
-                yield (province_ids[i], province_names[i])
+                yield (province_names[i], province_ids[i])

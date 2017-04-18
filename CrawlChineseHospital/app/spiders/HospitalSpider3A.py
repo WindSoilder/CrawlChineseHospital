@@ -11,8 +11,7 @@ class HospitalSpider3A(CommomHospitalSpider):
     CommomHospitalSpider.query_dict['hgrade'] = '1'
 
     def __init__(self, province_id):
-        province_id = province_id
-        self.query_dict['provinceID'] = province_id
+        self.query_dict['provinceId'] = province_id
         self.start_url += '?' + parse.urlencode(self.query_dict)
 
     def parse(self, response):
@@ -23,6 +22,3 @@ class HospitalSpider3A(CommomHospitalSpider):
                                      response_item['hGrade'],
                                      response_item['hName'])
             yield item
-
-    def _get_provinceID(self, provinceName):
-        return '7216'

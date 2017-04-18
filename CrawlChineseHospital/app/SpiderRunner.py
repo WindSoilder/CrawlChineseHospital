@@ -15,15 +15,22 @@ class Runner:
     def run(self):
         response = yield self.spider.start_request()
         item_generator = self.spider.parse(response)
+        final_items = []
 
         if isinstance(item_generator, Iterable):
             for item in item_generator:
-                check_success = self._filter_chcek(item)
-            if check_success:
-                self._go_through_pipeline(item)
+                check_success = self._filter_check(item)
+                if check_success:
+                    final_items.append(item)
+                    self._go_through_pipeline(item)
+
+        return final_items
 
     def _filter_check(self, item):
-        pass
+        # this method is sync, how to make it async
+        # just,,,,in the bottom level, how to make this filter check function async
+        return True
 
     def _go_through_pipeline(self, item):
-        pass
+        for pipeline in self.pipelines:
+            pipeline(item)

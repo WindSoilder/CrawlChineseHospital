@@ -11,7 +11,7 @@ class HospitalSpider(Spider):
 
 class CommomHospitalSpider(HospitalSpider):
     query_dict = {
-        "provinceID": None,
+        "provinceId": None,
         "htype": '',
         "hgrade": None,
         "hclass": '1',
