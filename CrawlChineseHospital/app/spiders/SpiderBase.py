@@ -2,6 +2,10 @@ from tornado import gen
 from tornado.httpclient import AsyncHTTPClient
 
 class Spider:
+    '''
+    The base class of spider, all subclass should
+    implement its' parse method
+    '''
     start_url = None
     http_client = AsyncHTTPClient()
 

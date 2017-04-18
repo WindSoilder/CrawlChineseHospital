@@ -8,6 +8,9 @@ from .HospitalSpider import CommomHospitalSpider
 from ..item import HospitalInforItem
 
 class HospitalSpider3A(CommomHospitalSpider):
+    '''
+    A spider to crawl grade 3, class A hospital in Chinese
+    '''
     CommomHospitalSpider.query_dict['hgrade'] = '1'
 
     def __init__(self, province_id):

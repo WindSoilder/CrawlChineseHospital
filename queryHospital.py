@@ -9,6 +9,7 @@ from CrawlChineseHospital.app.SpiderRunner import Runner
 from CrawlChineseHospital.app.spiders.ProvinceIDSpider import ProvinceIDSpider
 from CrawlChineseHospital.app.pipelines.OutputToConsolePipeline import OutputToConsolePipeline
 from CrawlChineseHospital.app.filters.CityNameFilter import CityNameFilter
+from CrawlChineseHospital.app.ProvinceData import ProvinceInformation
 
 @gen.coroutine
 def main(province_name):
@@ -19,15 +20,15 @@ def main(province_name):
                 province_name - the name of province, which can be Chinese or pinying format
         return: province_id
         '''
-        return '7216'
-        inner_dict = {}
-        province_chinese_name = inner_dict.get(province_name, province_name)
+        province_chinese_name = ProvinceInformation.get(province_name, province_name)
+        return crawl_items[province_chinese_name]
 
     province_idrunner = Runner(ProvinceIDSpider())
     crawl_items = yield province_idrunner.run()
     crawl_items = dict(crawl_items)
     province_id = get_province_id(province_name)
-    hospital_runner = Runner(HospitalSpider3A(province_id), pipelines=[OutputToConsolePipeline()])
+    hospital_runner = Runner(HospitalSpider3A(province_id),
+                             pipelines=[OutputToConsolePipeline()])
     yield hospital_runner.run()
 
 if __name__ == '__main__':

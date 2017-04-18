@@ -18,6 +18,9 @@ class Runner:
 
     @gen.coroutine
     def run(self):
+        '''
+        make spider fetch page and go through filters and pipelines
+        '''
         response = yield self.spider.start_request()
         item_generator = self.spider.parse(response)
         final_items = []

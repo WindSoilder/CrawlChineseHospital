@@ -4,6 +4,10 @@ from lxml import html
 from .SpiderBase import Spider
 
 class ProvinceIDSpider(Spider):
+    '''
+    A spider to crawl province id
+    the crawl result will be used for send information to fetch hospital information
+    '''
     base_url = "https://www.hqms.org.cn"
     path = "/usp/roster/index.jsp"
     start_url = parse.urljoin(base_url, path)
