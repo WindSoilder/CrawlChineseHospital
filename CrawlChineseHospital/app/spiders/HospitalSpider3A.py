@@ -1,8 +1,5 @@
+import copy
 import json
-from urllib import parse
-
-from tornado import gen
-from tornado.httpclient import AsyncHTTPClient
 
 from .HospitalSpider import CommomHospitalSpider
 from ..item import HospitalInforItem
@@ -11,17 +8,5 @@ class HospitalSpider3A(CommomHospitalSpider):
     '''
     A spider to crawl grade 3, class A hospital in Chinese
     '''
-    CommomHospitalSpider.query_dict['hgrade'] = '1'
-
-    def __init__(self, province_id):
-        self.query_dict['provinceId'] = province_id
-        self.start_url += '?' + parse.urlencode(self.query_dict)
-
-    def parse(self, response):
-        response_items = json.loads(response.body.decode('utf-8'))
-        for response_item in response_items:
-            item = HospitalInforItem(response_item['provinceId'],
-                                     response_item['hType'],
-                                     response_item['hGrade'],
-                                     response_item['hName'])
-            yield item
+    query_dict = copy.deepcopy(CommomHospitalSpider.query_dict)
+    query_dict['hgrade'] = '1'
